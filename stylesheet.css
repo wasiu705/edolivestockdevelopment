@@ -544,4 +544,20 @@
         padding-top: 2.5rem !important;
         padding-bottom: 2.5rem !important;
     }
+
+}
+.ticker {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    width: max-content !important;
+    animation: ticker-scroll 50s linear infinite; 
+}
+.ticker-item {
+    padding: 0 2.5rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+@keyframes ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
