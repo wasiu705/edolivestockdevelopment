@@ -546,6 +546,8 @@
     }
 
 }
+
+/* News Ticker Animation */
 .ticker {
     display: flex !important;
     flex-wrap: nowrap !important;
