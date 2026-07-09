@@ -526,21 +526,51 @@
                 </div>
             </div>
           
-            <!-- form -->
-          
+            <!-- Contact Form Column -->
             <div>
                 <h2 class="section-title text-3xl md:text-4xl font-bold text-[var(--text-dark)] mb-6">send us a Message</h2>
-                <div class="bg-gray-50 p-6 rounded-lg border">
+                
+                <!-- Email Option -->
+                <div class="bg-gray-50 p-6 rounded-lg border mb-6">
                     <p class="text-[var(--text-light)] mb-4">Click below to send us an email directly:</p>
                     <a href="mailto:mld@edostate.gov.ng?subject=Contact from Ministry Website" class="inline-block bg-[var(--edo-green)] text-white py-3 px-6 rounded-lg hover:bg-[var(--edo-gold)] transition font-medium">
                         <i class="fas fa-envelope mr-2"></i>Email Us: mld@edostate.gov.ng
                     </a>
-                    <p class="text-sm text-[var(--text-light)] mt-4">
+                </div>
+                
+                <!-- WhatsApp Form -->
+                <div class="bg-gray-50 p-6 rounded-lg border">
+                    <h3 class="text-lg font-bold text-[var(--text-dark)] mb-4 flex items-center gap-2">
+                        <i class="fab fa-whatsapp text-[var(--edo-green)]"></i> Send via WhatsApp
+                    </h3>
+                    
+                    <form id="whatsapp-form" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" id="wa-name" placeholder="Your Name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--edo-green)] transition text-sm" required>
+                            <input type="text" id="wa-phone" placeholder="Phone (Optional)" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--edo-green)] transition text-sm">
+                        </div>
+                        <input type="email" id="wa-email" placeholder="Email (Optional)" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--edo-green)] transition text-sm">
+                        <select id="wa-subject" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--edo-green)] transition text-sm" required>
+                            <option value="">Select a Topic</option>
+                            <option value="Veterinary Services">🩺 Veterinary Services</option>
+                            <option value="Farmer Registration">👨‍🌾 Farmer Registration</option>
+                            <option value="Funding & Loans">💰 Funding & Loans</option>
+                            <option value="Training Programs">🎓 Training Programs</option>
+                            <option value="Disease Report">🚨 Report Disease Outbreak</option>
+                            <option value="General Inquiry">❓ General Inquiry</option>
+                        </select>
+                        <textarea id="wa-message" rows="3" placeholder="Type your message..." class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-[var(--edo-green)] transition resize-none text-sm" required></textarea>
                         
+                        <button type="submit" class="w-full bg-[var(--edo-green)] hover:bg-[var(--edo-green-dark)] text-white font-medium py-3 px-6 rounded-lg transition flex items-center justify-center gap-2 text-sm">
+                            <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                        </button>
+                    </form>
+                    
+                    <p class="text-xs text-[var(--text-light)] mt-3 text-center">
+                        <i class="fas fa-lock mr-1"></i> Sent securely via WhatsApp
                     </p>
                 </div>
-            </div>
-            
+            </div>            
         </div>
     </div>
 </section>
@@ -614,7 +644,9 @@
     <i class="fas fa-chevron-up"></i>
 </div>
 
+<!-- Scripts -->
 <script>
+    // Counter Animation
     document.addEventListener('DOMContentLoaded', function() {
         const counters = document.querySelectorAll('.counter');
         counters.forEach(counter => {
@@ -633,10 +665,7 @@
             updateCount();
         });
     });
-</script>
 
-<!-- Scripts -->
-<script>
     // Mobile Menu Toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const closeMenuBtn = document.getElementById('close-menu');
@@ -661,35 +690,6 @@
         });
     }
 
-    // Project Filter Logic
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
-
-    filterButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Update active button style
-            filterButtons.forEach(b => {
-                b.classList.remove('bg-[var(--edo-green)]', 'text-white');
-                b.classList.add('bg-gray-100', 'text-[var(--text-dark)]');
-            });
-            btn.classList.remove('bg-gray-100', 'text-[var(--text-dark)]');
-            btn.classList.add('bg-[var(--edo-green)]', 'text-white');
-
-            // Filter projects
-            const filter = btn.getAttribute('data-filter');
-            projectCards.forEach(card => {
-                const status = card.getAttribute('data-status');
-                if (filter === 'all' || status === filter) {
-                    card.style.display = 'block';
-                    setTimeout(() => card.style.opacity = '1', 50);
-                } else {
-                    card.style.opacity = '0';
-                    setTimeout(() => card.style.display = 'none', 200);
-                }
-            });
-        });
-    });
-
     // Back to Top Button
     const backToTop = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
@@ -713,9 +713,46 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
+    // WhatsApp Form Handler
+    document.getElementById('whatsapp-form')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const ministryWhatsApp = '2349067734044'; 
+        
+        const name = document.getElementById('wa-name').value.trim();
+        const phone = document.getElementById('wa-phone').value.trim();
+        const email = document.getElementById('wa-email').value.trim();
+        const subject = document.getElementById('wa-subject').value;
+        const message = document.getElementById('wa-message').value.trim();
+        
+        const formattedMessage = `
+🟢 *NEW WEBSITE INQUIRY*
+👤 *Name:* ${name}
+📞 *Phone:* ${phone || 'Not provided'}
+📧 *Email:* ${email || 'Not provided'}
+📌 *Topic:* ${subject}
+💬 *Message:*
+${message}
+──────────────
+🌐 Sent from: Ministry of Livestock Development Website, Edo State
+        `.trim();
+        
+        const encodedMessage = encodeURIComponent(formattedMessage);
+        const whatsappURL = `https://wa.me/${ministryWhatsApp}?text=${encodedMessage}`;
+        
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Opening...';
+        submitBtn.disabled = true;
+        
+        setTimeout(() => {
+            window.open(whatsappURL, '_blank');
+            this.reset();
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }, 600);
+    });
 </script>
 
 </body>
 </html>
-
-
